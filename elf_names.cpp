@@ -102,69 +102,64 @@ const char *get_machine_name(uint16_t value) {
 
 //returns section header so we can use indexes yay
 Elf64_Shdr *elf_sheader(Elf64_Ehdr *elf_header) {
-	return (Elf64_Shdr *)((uint64_t)elf_header + elf_header->e_shoff);
+  return (Elf64_Shdr *)((uint64_t)elf_header + elf_header->e_shoff);
 }
 //returns a particluar index of the header table
 Elf64_Shdr *elf_section(Elf64_Ehdr *elf_header, int idx) {
-	return &elf_sheader(elf_header)[idx];
+  return &elf_sheader(elf_header)[idx];
 }
 
 char *elf_str_table(Elf64_Ehdr *elf_header) {
-	//check if null
-	uint64_t sheadindex = elf_header->e_shstrndx;
-	if(sheadindex == SHN_UNDEF) return NULL;
-	//returns the header address + the first byte in the section
-	return (char *)elf_header + elf_section(elf_header, elf_header->e_shstrndx)->sh_offset;
+  //returns the header address + the first byte in the section
+  return (char *)elf_header + elf_section(elf_header, elf_header->e_shstrndx)->sh_offset;
 }
 
 
 char *elf_lookup_string(Elf64_Ehdr *elf_header, int offset) {
-	char *strtab = elf_str_table(elf_header);
-	if(strtab == NULL) return NULL;
-	return strtab + offset;
+  char *strtab = elf_str_table(elf_header);
+  return strtab + offset;
 }
 
 char *sym_lookup_string(Elf64_Ehdr *elf_header, int offset1, int offset2) {
-	char *strtab = (char *) elf_header + offset1; 
-	if(strtab == NULL) return NULL;
-	return (char *) strtab + offset2;
+  char *strtab = (char *) elf_header + offset1; 
+  return (char *) strtab + offset2;
 }
 
 void printInfoSH(int index, char* name, unsigned int type, int offset, int size) {
-
-	std::string str(name);
-	std::cout << "Section header " << std::dec << index << ": name=" << name;
-	std::cout << ", type=" << std::hex << type; 
-	std::cout << ", offset=" << std::hex << offset; 
-	std::cout << ", size=" << std::hex << size << std::endl; 
+  
+  std::string str(name);
+  std::cout << "Section header " << std::dec << index << ": name=" << name;
+  std::cout << ", type=" << std::hex << type; 
+  std::cout << ", offset=" << std::hex << offset; 
+  std::cout << ", size=" << std::hex << size << std::endl; 
 }
 
 void printInfoSym(int index, char* name, unsigned int size, int info, int other) {
-	std::string str(name);
-	std::cout << "Symbol " << std::dec << index << ": name=" << name;
-	std::cout << ", size=" << std::hex << size; 
-	std::cout << ", info=" << std::hex << info; 
-	std::cout << ", other=" << std::hex << other << std::endl; 
+  std::string str(name);
+  std::cout << "Symbol " << std::dec << index << ": name=" << name;
+  std::cout << ", size=" << std::hex << size; 
+  std::cout << ", info=" << std::hex << info; 
+  std::cout << ", other=" << std::hex << other << std::endl; 
 }
 
 bool err (Elf64_Ehdr* elf_header) {
-	//0x7f
-	if(elf_header->e_ident[EI_MAG0] != ELFMAG0) {
-		return true;
+  //0x7f
+  if(elf_header->e_ident[EI_MAG0] != ELFMAG0) {
+    return true;
+  }
+  //E
+  if(elf_header->e_ident[EI_MAG1] != ELFMAG1) {
+    return true;
 	}
-	//E
-	if(elf_header->e_ident[EI_MAG1] != ELFMAG1) {
-		return true;
-	}
-	//L
-	if(elf_header->e_ident[EI_MAG2] != ELFMAG2) {
-		return true;
-	}
+  //L
+  if(elf_header->e_ident[EI_MAG2] != ELFMAG2) {
+    return true;
+  }
 	//F
-	if(elf_header->e_ident[EI_MAG3] != ELFMAG3) {
-		return true;
-	}
-	return false;
+  if(elf_header->e_ident[EI_MAG3] != ELFMAG3) {
+    return true;
+  }
+  return false;
 }
 
 
