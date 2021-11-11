@@ -1,3 +1,12 @@
+/*
+ * Main file for program that reads and decodes an ELF file and prints out relevent information
+ * CSF Assignment 4
+ * F. Ferrara
+ * fferrar4@jhu.edu
+ * T. Nguyen
+ * tnguy228@jhu.edu
+*/
+
 #include <cstdio>
 #include <cstdlib>
 #include <cstring>
@@ -17,11 +26,11 @@
 #include "elf_names.h"
 
 int main(int argc, char **argv) {
-
-	if (argc != 2) {
-		printf("Not an ELF file");
-		return 1;
-	}
+  
+  if (argc != 2) {
+    printf("Not an ELF file");
+    return 1;
+  }
 
   char* filename = argv[1];
   int fd = open(filename, O_RDONLY);
@@ -37,6 +46,9 @@ int main(int argc, char **argv) {
     size_t file_size = statbuf.st_size;
     // ...
     void *data = mmap(NULL, file_size, PROT_READ, MAP_PRIVATE, fd, 0);
+    if(data == ((void *)-1)) {
+      fprintf(stderr, "mmap failure");
+    }
 
     //get pointer to elf header
     Elf64_Ehdr *elf_header = (Elf64_Ehdr *) data;

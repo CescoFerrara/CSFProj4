@@ -1,3 +1,12 @@
+/*                                                                                                                                                                                                         
+ * Function header file describing functions that are used in magic.cpp                                                                                                     
+ * CSF Assignment 4                                                                                                                                                                                        
+ * F. Ferrara                                                                                                                                                                                              
+ * fferrar4@jhu.edu                                                                                                                                                                                        
+ * T. Nguyen                                                                                                                                                                                               
+ * tnguy228@jhu.edu                                                                                                                                                                                       
+*/
+
 #ifndef ELF_NAMES_H
 #define ELF_NAMES_H
 #include <cstdio>

@@ -1,3 +1,12 @@
+/*                                                                                                                                                                                                         
+ * Helper functions that were used in magic.cpp in order to assist reading an ELF file                                                                                                                  
+ * CSF Assignment 4                                                                                                                                                                                        
+ * F. Ferrara                                                                                                                                                                                             
+ * fferrar4@jhu.edu                                                                                                                                                                                       
+ * T. Nguyen                                                                                                                                                                                              
+ * tnguy228@jhu.edu                                                                                                                                                                                       
+*/
+
 #include "elf_names.h"
 
 struct MagicValue {
